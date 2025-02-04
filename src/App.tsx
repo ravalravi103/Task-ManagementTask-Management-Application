@@ -1,10 +1,6 @@
 import React, { useEffect } from 'react'
 import { store } from './Redux/store';
 import { Provider } from 'react-redux';
-
-// import Counter from './Components/Counter'
-
-import './App.css'
 import TaskManager from './Components/TaskManager';
 import { Toaster } from 'sonner';
 import { useNavigate } from 'react-router-dom';
@@ -20,8 +16,8 @@ const App: React.FC = () => {
   return (
     <React.Fragment>
       <Provider store={store}>
-        <Toaster position='top-center' richColors/> 
-       <TaskManager/>
+        <Toaster position='top-center' richColors />
+        <TaskManager />
       </Provider>
     </React.Fragment>
   )

@@ -1,30 +1,17 @@
-import { useState } from 'react';
-import { Box, Grid, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 
+import { Grid2, ThemeProvider, CssBaseline } from '@mui/material';
 import AppLayout from './Layout/AppLayout';
+import { useThemeConfig } from '../Theme/useThemeConfig';
 
 const TaskManager = () => {
-    const [darkMode, setDarkMode] = useState<boolean>(false);
-    const changeMode = () => {
-        setDarkMode(prevMode => !prevMode);
-    }
-
-    const theme = createTheme({
-        palette: {
-            mode: darkMode ? 'dark' : 'light',
-        },
-    });
+    const { darkMode, theme, toggleMode } = useThemeConfig();
 
     return (
         <ThemeProvider theme={theme}>
             <CssBaseline />
-            <Box p={1}>
-                <Grid container spacing={1}>
-                    <Grid container spacing={1}>
-                        <AppLayout darkMode={darkMode} changeMode={changeMode} />
-                    </Grid>
-                </Grid>
-            </Box>
+            <Grid2 container spacing={1}>
+                <AppLayout darkMode={darkMode} changeMode={toggleMode} />
+            </Grid2>
         </ThemeProvider>
     );
 };
