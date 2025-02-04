@@ -1,20 +1,28 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { store } from './Redux/store';
 import { Provider } from 'react-redux';
 
-import Counter from './Components/Counter'
+// import Counter from './Components/Counter'
 
 import './App.css'
+import TaskManager from './Components/TaskManager';
+import { Toaster } from 'sonner';
+import { useNavigate } from 'react-router-dom';
 
-function App() {
 
-
+const App: React.FC = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (location.pathname === '/') {
+      navigate('/create-tasks');
+    }
+  }, [location.pathname, navigate]);
   return (
     <React.Fragment>
       <Provider store={store}>
-        <Counter></Counter>
+        <Toaster position='top-center' richColors/> 
+       <TaskManager/>
       </Provider>
-
     </React.Fragment>
   )
 }
