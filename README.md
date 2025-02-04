@@ -45,8 +45,6 @@ Note : node version used (20.9.0)
  npm run dev
 ```
 
-
-
 ## Feedback
 
 If you have any feedback, please reach out to us at ravalravi103@gmail.com

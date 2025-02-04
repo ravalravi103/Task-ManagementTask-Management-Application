@@ -1,7 +1,7 @@
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'; 
-import AccessAlarmIcon from '@mui/icons-material/AccessAlarm'; 
-import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty'; 
-import { Box} from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import HourglassEmptyIcon from '@mui/icons-material/HourglassEmpty';
+import { Box } from '@mui/material';
 import React, { Suspense, useEffect } from 'react';
 import { deleteTaskById, fetchTasks } from '../../Redux/Slice/taskSlice';
 import { useAppDispatch, useAppSelector } from "../../Redux/store";
@@ -11,12 +11,12 @@ import Paper from '@mui/material/Paper'
 import { toast } from 'sonner';
 import DataTable from '../DataTable/DataTable';
 
-const TaskUpdateDialog = React.lazy(() => import('../Dialog/Dialog')); 
+const TaskUpdateDialog = React.lazy(() => import('../Dialog/Dialog'));
 
 type TaskStatus = "Pending" | "In Progress" | "Completed";
 
 type Task = {
-  id: number; 
+  id: number;
   title: string;
   description: string;
   due_date: string;
@@ -28,15 +28,15 @@ const TaskList = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [statusFilter, setStatusFilter] = React.useState<string>(''); 
+  const [statusFilter, setStatusFilter] = React.useState<string>('');
   const [order] = React.useState<'asc' | 'desc'>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Task>('due_date'); 
+  const [orderBy, setOrderBy] = React.useState<keyof Task>('due_date');
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [selectedTask, setSelectedTask] = React.useState<Task>();
 
   useEffect(() => {
     dispatch(fetchTasks({ page, rowsPerPage }));
-  }, [dispatch,page,rowsPerPage]);
+  }, [dispatch, page, rowsPerPage]);
 
 
   const handleChangePage = (event: unknown, newPage: number) => {
@@ -48,7 +48,7 @@ const TaskList = () => {
     setPage(0);
   };
 
-  const isOverdue = (dueDate: string) : boolean => {
+  const isOverdue = (dueDate: string): boolean => {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
     const due = new Date(dueDate);
@@ -71,7 +71,7 @@ const TaskList = () => {
       }),
     [statusFilter, data]
   );
-  
+
   console.log(filteredRows)
   const visibleRows = React.useMemo(
     () =>
@@ -82,8 +82,8 @@ const TaskList = () => {
               ? -1
               : 1
             : a[orderBy] < b[orderBy]
-            ? -1
-            : 1
+              ? -1
+              : 1
         )
         .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
     [order, orderBy, page, rowsPerPage, filteredRows]
@@ -125,7 +125,7 @@ const TaskList = () => {
 
   return (
     <Box sx={{ width: '100%' }}>
-      <Paper sx={{ width: '100%', mb: 2,mt:"60px" ,boxShadow: '0px 1px 2px 2px rgba(169, 169, 169, 0.4)'}}>
+      <Paper sx={{ width: '100%', mb: 2, mt: "60px", boxShadow: '0px 1px 2px 2px rgba(169, 169, 169, 0.4)' }}>
         <TableContainer sx={{ maxHeight: 700 }}>
           <DataTable
             taskFields={['TaskNo', 'Title', 'Description', 'Date', 'Status', 'Actions']}
@@ -134,8 +134,8 @@ const TaskList = () => {
             visibleRows={visibleRows}
             getStatusIcon={getStatusIcon}
             handleEditClick={handleEditClick}
-            handleDeleteTask={handleDeleteTask} 
-            isOverdue={isOverdue}          
+            handleDeleteTask={handleDeleteTask}
+            isOverdue={isOverdue}
           />
         </TableContainer>
         <TablePagination
