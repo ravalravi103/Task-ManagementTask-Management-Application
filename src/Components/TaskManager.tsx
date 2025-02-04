@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Box, Grid, ThemeProvider, createTheme, CssBaseline } from '@mui/material';
-import SideNav from './SideNav/Sidenav';
+
+import AppLayout from './Layout/AppLayout';
 
 const TaskManager = () => {
     const [darkMode, setDarkMode] = useState<boolean>(false);
@@ -20,7 +21,7 @@ const TaskManager = () => {
             <Box p={1}>
                 <Grid container spacing={1}>
                     <Grid container spacing={1}>
-                        <SideNav darkMode={darkMode} changeMode={changeMode} />
+                        <AppLayout darkMode={darkMode} changeMode={changeMode} />
                     </Grid>
                 </Grid>
             </Box>

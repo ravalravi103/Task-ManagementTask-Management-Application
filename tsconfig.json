@@ -1,7 +1,23 @@
 {
   "files": [],
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@types/*": [
+        "src/types/*"
+      ]
+    },
+    "typeRoots": [
+      "./src/types",
+      "./node_modules/@types"
+    ]
+  },
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
   ]
 }

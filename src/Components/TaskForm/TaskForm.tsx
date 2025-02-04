@@ -13,16 +13,7 @@ import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import TaskFormLogic from '../HOC/TaskFormLogic';
 
-export type TaskStatus = 'Pending' | 'In Progress' | 'Completed';
-export interface Task {
-  id: number;
-  title: string;
-  description: string;
-  due_date: string;
-  status: TaskStatus;
-}
-
-export interface TaskFormProps {
+interface TaskFormProps {
   formik: any;
   taskArray: TaskStatus[];
   loading: boolean;

@@ -13,16 +13,6 @@ import DataTable from '../DataTable/DataTable';
 
 const TaskUpdateDialog = React.lazy(() => import('../Dialog/Dialog'));
 
-type TaskStatus = "Pending" | "In Progress" | "Completed";
-
-type Task = {
-  id: number;
-  title: string;
-  description: string;
-  due_date: string;
-  status: TaskStatus;
-};
-
 const TaskList = () => {
   const { taskState: { data, error, loading } } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();

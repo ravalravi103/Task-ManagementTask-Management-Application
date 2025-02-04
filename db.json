@@ -1,20 +1,6 @@
 {
   "tasks": [
     {
-      "id": "2",
-      "title": "Hello",
-      "description": "This is The Task Description2",
-      "due_date": "2025-02-06",
-      "status": "Pending"
-    },
-    {
-      "title": "Task one",
-      "description": "This is Task One ",
-      "due_date": "2025-02-05",
-      "status": "In Progress",
-      "id": "3"
-    },
-    {
       "id": "5",
       "title": "Hello",
       "description": "This is The Task Description2",
@@ -54,14 +40,7 @@
       "title": "Task one",
       "description": "This is Task One ",
       "due_date": "2025-02-05",
-      "status": "Pending"
-    },
-    {
-      "id": "11",
-      "title": "Hello",
-      "description": "This is The Task Description2",
-      "due_date": "2025-02-06",
-      "status": "Pending"
+      "status": "Completed"
     },
     {
       "id": "12",
@@ -85,11 +64,11 @@
       "status": "Pending"
     },
     {
-      "id": "09a4",
-      "title": "Hello World ",
-      "description": "This is Hello world ",
-      "due_date": "2025-02-05",
-      "status": "Pending"
+      "id": "8ffa",
+      "title": "Task 100",
+      "description": "Task 100",
+      "due_date": "2025-02-04",
+      "status": "Completed"
     }
   ]
 }

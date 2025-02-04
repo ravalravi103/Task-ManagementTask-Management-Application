@@ -8,7 +8,7 @@ import { Task, TaskFormProps, TaskStatus } from '../TaskForm/TaskForm';
 
 const TaskFormLogic = (Component: React.ComponentType<TaskFormProps>) => {
   const TaskFormWithLogic: React.FC<{ task?: Task; onClose?: () => void }> = ({ task, onClose }) => {
-    const taskArray: TaskStatus[] = ['Pending', 'In Progress', 'Completed']; // Static statuses
+    const taskArray: TaskStatus[] = task ? ['Pending', 'In Progress', 'Completed'] : ['Pending'];
     const { taskState: { error, loading } } = useAppSelector((state) => state);
     const dispatch = useAppDispatch();
 
