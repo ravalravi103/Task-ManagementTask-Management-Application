@@ -7,18 +7,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import TaskFormLogic from '../HOC/TaskFormLogic'; // Import TaskFormLogic
 
 const TaskForm = React.lazy(() => import('../TaskForm/TaskForm'));
-type Task = {
-  id: number;
-  title: string;
-  description: string;
-  due_date: string;
-  status: 'Pending' | 'In Progress' | 'Completed';
-};
 
 interface TaskUpdateDialogProps {
   open: boolean;
   onClose: () => void;
-  task: Task;  
+  task: Task;
 }
 
 const TaskUpdateDialog: React.FC<TaskUpdateDialogProps> = ({ open, onClose, task }) => {
@@ -39,7 +32,7 @@ const TaskUpdateDialog: React.FC<TaskUpdateDialogProps> = ({ open, onClose, task
         </IconButton>
       </DialogTitle>
       <DialogContent>
-       <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<div>Loading...</div>}>
           <TaskFormWithLogic task={task} onClose={onClose} />
         </Suspense>
       </DialogContent>

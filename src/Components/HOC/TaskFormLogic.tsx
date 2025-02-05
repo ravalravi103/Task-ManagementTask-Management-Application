@@ -1,10 +1,11 @@
 import React from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { useAppDispatch, useAppSelector } from '../../Redux/store'; 
-import { createNewTask, updateExistingTask } from '../../Redux/Slice/taskSlice'; // Import your action creators
+import { useAppDispatch, useAppSelector } from '../../Redux/store';
+import { createNewTask, updateExistingTask } from '../../Redux/Slice/taskSlice';
 import { toast } from 'sonner';
-import { Task, TaskFormProps, TaskStatus } from '../TaskForm/TaskForm';
+import { TaskFormProps } from '../TaskForm/TaskForm';
+
 
 const TaskFormLogic = (Component: React.ComponentType<TaskFormProps>) => {
   const TaskFormWithLogic: React.FC<{ task?: Task; onClose?: () => void }> = ({ task, onClose }) => {
@@ -12,29 +13,34 @@ const TaskFormLogic = (Component: React.ComponentType<TaskFormProps>) => {
     const { taskState: { error, loading } } = useAppSelector((state) => state);
     const dispatch = useAppDispatch();
 
-    const formik = useFormik({
-        initialValues: {
-            id: task?.id ,
-            title: task?.title || '',
-            description: task?.description || '',
-            due_date: task?.due_date || '',
-            status: task?.status || '',
-        },
-          
+
+    // Form Initialization
+    const formik = useFormik<Task>({
+      initialValues: {
+        id: task?.id,
+        title: task?.title || '',
+        description: task?.description || '',
+        due_date: task?.due_date || '',
+        status: task?.status || 'Pending',
+      },
+
+
+      //  Validating the Form feild
       validationSchema: Yup.object({
         title: Yup.string().required('Task title is required'),
-        description: Yup.string(),
+        description: Yup.string().required('Description is required'),
         due_date: Yup.date().required('Due date is required'),
-        status: Yup.string().oneOf(taskArray, 'Invalid status').required('Status is required'),
+        status: Yup.string().required('Status is required'),
       }),
+
+      // This is Form Submit
       onSubmit: async (values) => {
         try {
           let data;
-          const status: TaskStatus = values.status as TaskStatus;
           if (task) {
-            data = await dispatch(updateExistingTask({ ...values, id: task.id, status }));
+            data = await dispatch(updateExistingTask({ ...values, id: task.id, status: values?.status }));
           } else {
-            data = await dispatch(createNewTask({ ...values, status }));
+            data = await dispatch(createNewTask({ ...values, status: values?.status }));
           }
 
           if (data.meta.requestStatus === 'fulfilled') {
@@ -52,7 +58,13 @@ const TaskFormLogic = (Component: React.ComponentType<TaskFormProps>) => {
       },
     });
 
-    return <Component formik={formik} taskArray={taskArray} loading={loading} error={error} onClose={onClose} task={task} />;
+    return <Component
+      formik={formik}
+      taskArray={taskArray}
+      loading={loading}
+      error={error}
+      onClose={onClose}
+      task={task} />;
   };
 
   return TaskFormWithLogic;

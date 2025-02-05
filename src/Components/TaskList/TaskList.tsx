@@ -18,9 +18,7 @@ const TaskList = () => {
   const dispatch = useAppDispatch();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
-  const [statusFilter, setStatusFilter] = React.useState<string>('');
-  const [order] = React.useState<'asc' | 'desc'>('asc');
-  const [orderBy, setOrderBy] = React.useState<keyof Task>('due_date');
+  const [statusFilter, setStatusFilter] = React.useState<TaskStatus>("Pending");
   const [dialogOpen, setDialogOpen] = React.useState(false);
   const [selectedTask, setSelectedTask] = React.useState<Task>();
 
@@ -62,23 +60,11 @@ const TaskList = () => {
     [statusFilter, data]
   );
 
-  console.log(filteredRows)
   const visibleRows = React.useMemo(
-    () =>
-      filteredRows
-        .sort((a, b) =>
-          order === 'desc'
-            ? b[orderBy] < a[orderBy]
-              ? -1
-              : 1
-            : a[orderBy] < b[orderBy]
-              ? -1
-              : 1
-        )
-        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
-    [order, orderBy, page, rowsPerPage, filteredRows]
+    () => filteredRows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage),
+    [page, rowsPerPage, filteredRows]
   );
-  console.log(visibleRows)
+  
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error...</p>;
 

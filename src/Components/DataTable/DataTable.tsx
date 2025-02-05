@@ -4,19 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ErrorIcon from '@mui/icons-material/Error';
 import { toast } from "sonner";
 
-type TaskStatus = "Pending" | "In Progress" | "Completed";
-interface Task {
-  id: number;
-  title: string;
-  description: string;
-  due_date: string;
-  status: TaskStatus;
-}
 
 interface DataTableProps {
   taskFields: string[];
-  statusFilter: string;
-  setStatusFilter: (status: string) => void;
+  statusFilter: TaskStatus;
+  setStatusFilter: (status: TaskStatus) => void;
   visibleRows: Task[];
   getStatusIcon: (status: string) => JSX.Element | null;
   handleEditClick: (task: Task) => void;
@@ -32,7 +24,7 @@ const DataTable: React.FC<DataTableProps> = ({
   getStatusIcon,
   handleEditClick,
   handleDeleteTask,
-  isOverdue 
+  isOverdue
 }) => {
   const theme = useTheme();
 
@@ -57,7 +49,7 @@ const DataTable: React.FC<DataTableProps> = ({
                     labelId="status-filter-label"
                     id="status-filter"
                     value={statusFilter}
-                    onChange={(e) => setStatusFilter(e.target.value)}
+                    onChange={(e) => setStatusFilter(e.target.value as TaskStatus)}
                     label="Status"
                     size="small"
                   >
@@ -108,7 +100,7 @@ const DataTable: React.FC<DataTableProps> = ({
                   <IconButton color="primary" onClick={() => editTask(task)} title="Edit Task">
                     <EditIcon />
                   </IconButton>
-                  <IconButton color="error" onClick={() => handleDeleteTask(task.id)} title="Delete Task">
+                  <IconButton color="error" onClick={() => handleDeleteTask(task.id as number)} title="Delete Task">
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>

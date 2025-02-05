@@ -12,14 +12,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import dayjs from 'dayjs';
 import TaskFormLogic from '../HOC/TaskFormLogic';
+import { FormikProps } from "formik";
 
-interface TaskFormProps {
-  formik: any;
+
+export interface TaskFormProps {
+  formik: FormikProps<Task>;
   taskArray: TaskStatus[];
   loading: boolean;
   error: string;
   onClose?: () => void;
-  task?: Task;
+  task?: Task
 }
 
 const TaskForm: React.FC<TaskFormProps> = ({ formik, task, taskArray, loading, error }) => {
@@ -64,9 +66,9 @@ const TaskForm: React.FC<TaskFormProps> = ({ formik, task, taskArray, loading, e
                     <Box sx={{ width: '100%' }}>
                       <DatePicker
                         label="Due Date"
-                        value={formik.values.due_date ? dayjs(formik.values.due_date) : null} // Convert string to Dayjs
+                        value={formik.values.due_date ? dayjs(formik.values.due_date) : null}
                         onChange={(newValue) => {
-                          formik.setFieldValue('due_date', newValue ? newValue.format('YYYY-MM-DD') : '');  // Save as string in 'YYYY-MM-DD' format
+                          formik.setFieldValue('due_date', newValue ? newValue.format('YYYY-MM-DD') : '');
                         }}
                         minDate={dayjs()}
                         sx={{ width: '100%' }}

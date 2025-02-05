@@ -3,16 +3,6 @@ import axios from 'axios';
 
 const API_URL = 'http://localhost:5000/tasks';
 
-type TaskStatus = "Pending" | "In Progress" | "Completed";
-
-type Task = {
-    id: number;
-    title: string;
-    description: string;
-    due_date: string;
-    status: TaskStatus;
-};
-
 interface TaskState {
     data: Task[];
     loading: boolean;
@@ -37,7 +27,7 @@ export const fetchTasks = createAsyncThunk(
           }
         });
         return response.data;
-      } catch (error: any) {
+      } catch (error:any) {
         return rejectWithValue(error.message);
       }
     }
@@ -53,7 +43,7 @@ export const createNewTask = createAsyncThunk('task/createNewTask', async (task:
     }
 });
 
-export const updateExistingTask = createAsyncThunk('task/updateTask', async (task: Partial<Task>, { rejectWithValue }) => {
+export const updateExistingTask = createAsyncThunk('task/updateTask', async (task: Task, { rejectWithValue }) => {
     try {
         console.log(task, "This is the Task, in Update")
         const response = await axios.put(`${API_URL}/${task.id}`, task);
